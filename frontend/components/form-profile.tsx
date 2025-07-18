@@ -75,18 +75,25 @@ export function ProfileForm({ initialData, trigger }: ProfileFormProps) {
   const birthday = watch("birthday");
 
   async function onSubmit(data: z.infer<typeof formSchema>) {
+    const isEdit = Boolean(initialData);
+    const url = isEdit
+      ? `/api/UserProfiles/${initialData?.id}`
+      : "/api/UserProfiles";
+    const method = isEdit ? "put" : "post";
     try {
-      const response = await axiosInstance.post("/api/UserProfiles", data);
+      const response = await axiosInstance({ method, url, data });
       toast.custom((t) => (
         <Alert>
           <CheckCircle2Icon />
-          <AlertTitle>Success! Profile have been added</AlertTitle>
-          <AlertDescription>{`Profile has been added successfully.`}</AlertDescription>
+          <AlertTitle>Success!</AlertTitle>
+          <AlertDescription>{`Profile has been ${
+            isEdit ? "updated" : "added"
+          } successfully.`}</AlertDescription>
         </Alert>
       ));
     } catch (error) {
       console.log(error);
-      toast.error("Something went wrong please try again!");
+      toast.error("Something went wrong. Please try again!");
     }
   }
 
