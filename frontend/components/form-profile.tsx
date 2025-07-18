@@ -30,7 +30,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import * as React from "react";
-import { cn } from "@/lib/utils";
+import { axiosInstance, cn } from "@/lib/utils";
 import { useEffect } from "react";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { CheckCircle2Icon } from "lucide-react";
@@ -74,16 +74,20 @@ export function ProfileForm({ initialData, trigger }: ProfileFormProps) {
   const { control, handleSubmit, watch, setValue } = form;
   const birthday = watch("birthday");
 
-  function onSubmit(data: z.infer<typeof formSchema>) {
-    // data.birthday = new Date(data.birthday);
-    console.log(data);
-    toast.custom((t) => (
-      <Alert>
-        <CheckCircle2Icon />
-        <AlertTitle>Success! Profile have been added</AlertTitle>
-        <AlertDescription>{`Profile has been added successfully.`}</AlertDescription>
-      </Alert>
-    ));
+  async function onSubmit(data: z.infer<typeof formSchema>) {
+    try {
+      const response = await axiosInstance.post("/api/UserProfiles", data);
+      toast.custom((t) => (
+        <Alert>
+          <CheckCircle2Icon />
+          <AlertTitle>Success! Profile have been added</AlertTitle>
+          <AlertDescription>{`Profile has been added successfully.`}</AlertDescription>
+        </Alert>
+      ));
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong please try again!");
+    }
   }
 
   useEffect(() => {

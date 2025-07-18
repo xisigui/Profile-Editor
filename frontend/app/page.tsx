@@ -5,14 +5,13 @@ import { ProfileForm } from "@/components/form-profile";
 import { Button } from "@/components/ui/button";
 import { UserRoundPlus } from "lucide-react";
 import { useState, useEffect } from "react";
-import axios from "axios";
+import { axiosInstance } from "@/lib/utils";
 
 export default function Home() {
   const [profiles, setProfiles] = useState([]);
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
   const fetchData = async () => {
-    const result = await axios.get(`${apiUrl}/api/UserProfiles/`);
+    const result = await axiosInstance("/api/UserProfiles/");
     setProfiles(result.data);
   };
 
