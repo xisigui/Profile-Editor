@@ -11,6 +11,9 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { CheckCircle2Icon } from "lucide-react";
 
 interface DeleteProfileDialogProps {
   profileId: number;
@@ -25,7 +28,13 @@ export function DeleteProfileDialog({
 
   function onSubmit() {
     setIsOpen(false);
-    console.log(`Data Deleted ${profileId}`);
+    toast.custom((t) => (
+      <Alert>
+        <CheckCircle2Icon />
+        <AlertTitle>Success! Data have been deleted</AlertTitle>
+        <AlertDescription>{`Profile has been deleted successfully.`}</AlertDescription>
+      </Alert>
+    ));
   }
 
   return (
