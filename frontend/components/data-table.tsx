@@ -17,6 +17,7 @@ import {
   IconDotsVertical,
   IconGenderFemale,
   IconGenderMale,
+  IconGenderTransgender,
   IconUser,
 } from "@tabler/icons-react";
 import { z } from "zod";
@@ -100,6 +101,14 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
               {formatGender}
             </Badge>
           )}
+          {gender &&
+            gender.toLowerCase() !== "male" &&
+            gender.toLowerCase() !== "female" && (
+              <Badge variant="outline">
+                <IconGenderTransgender size={14} color="#9b59b6" />
+                {formatGender}
+              </Badge>
+            )}
         </div>
       );
     },
