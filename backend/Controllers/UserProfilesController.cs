@@ -69,7 +69,7 @@ namespace backend.Controllers
             existingUserProfile.Name = userProfile.Name;
             existingUserProfile.Email = userProfile.Email;
             existingUserProfile.Gender = userProfile.Gender;
-            existingUserProfile.BirthDate = userProfile.BirthDate;
+            existingUserProfile.Birthday = userProfile.Birthday;
 
             _context.Entry(existingUserProfile).State = EntityState.Modified;
             await _context.SaveChangesAsync();
