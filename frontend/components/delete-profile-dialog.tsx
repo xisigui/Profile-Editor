@@ -44,6 +44,9 @@ export function DeleteProfileDialog({
       toast.error("Something went wrong. Please try again!");
     } finally {
       setIsOpen(false);
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     }
   }
 

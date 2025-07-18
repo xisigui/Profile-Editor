@@ -78,6 +78,7 @@ export function ProfileForm({ initialData, trigger }: ProfileFormProps) {
 
   async function onSubmit(data: z.infer<typeof formSchema>) {
     const isEdit = Boolean(initialData);
+
     const url = isEdit
       ? `/api/UserProfiles/${initialData?.id}`
       : "/api/UserProfiles";
@@ -98,6 +99,9 @@ export function ProfileForm({ initialData, trigger }: ProfileFormProps) {
       toast.error("Something went wrong. Please try again!");
     } finally {
       setIsOpen(false);
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     }
   }
 
