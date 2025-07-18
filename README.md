@@ -33,22 +33,21 @@ Ensure the following tools are installed on your system:
 
 ## Setting Up the Backend (.NET Core Web API)
 
-1. **Clone the repository**:
+### 1. Clone the repository:
 
 ```bash
 git clone https://github.com/xisigui/Profile-Editor.git
 cd backend
 ```
-
-2. **Install dependencies:**
-
+### 2. Install Dependencies *(Optional)*  
+>Skip this step if the required dependencies are already installed.
 ```bash
 dotnet add package Microsoft.EntityFrameworkCore.Sqlite
 dotnet add package Microsoft.EntityFrameworkCore.Tools
 ```
 
-3.  **Create and apply database migrations:**
-
+### 3.  Create and apply database migrations  *(Optional)*
+>The database migration is already automatic you can skip this part)
 ```bash
 dotnet ef migrations add InitialCreate
 dotnet ef database update
@@ -64,19 +63,26 @@ The API will be available at http://localhost:8000.
 
 ## Setting Up the Frontend (React.js)
 
-1. **Navigate to the frontend folder:**
+### 1. Navigate to the frontend folder:
 
 ```bash
 cd frontend
 ```
 
-2. **Install dependencies:**
+### 2. Install dependencies:
 
 ```bash
 npm install
 ```
 
-3. **Run the frontend:**
+### 3. Copy the environment example file and configure it: **(Required)**
+>Make sure to do this before running the frontend)
+
+```bash
+copy .env.example .env
+```
+
+### 4. Run the frontend:
 
 ```bash
 npm start
