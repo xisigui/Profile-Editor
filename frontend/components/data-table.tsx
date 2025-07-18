@@ -40,6 +40,7 @@ import { format } from "date-fns";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { DeleteProfileDialog } from "@/components/delete-profile-dialog";
+import { ProfileForm } from "@/components/form-profile";
 
 export const schema = z.object({
   id: z.number(),
@@ -144,9 +145,21 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-32">
-          <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
-            Edit
-          </DropdownMenuItem>
+          <ProfileForm
+            initialData={{
+              id: row.original.id,
+              name: row.getValue("name"),
+              email: row.original.email,
+              gender: row.getValue("gender"),
+              birthday: row.getValue("birthday"),
+              age: row.getValue("age"),
+            }}
+            trigger={
+              <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+                Edit
+              </DropdownMenuItem>
+            }
+          />
           <DropdownMenuSeparator />
           <DeleteProfileDialog
             profileId={row.original.id}
