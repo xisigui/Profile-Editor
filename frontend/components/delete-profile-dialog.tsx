@@ -42,8 +42,9 @@ export function DeleteProfileDialog({
     } catch (error) {
       console.log(error);
       toast.error("Something went wrong. Please try again!");
+    } finally {
+      setIsOpen(false);
     }
-    setIsOpen(false);
   }
 
   return (

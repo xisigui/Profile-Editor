@@ -31,7 +31,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import * as React from "react";
 import { axiosInstance, cn } from "@/lib/utils";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { CheckCircle2Icon } from "lucide-react";
 
@@ -60,6 +60,8 @@ const formSchema = z.object({
 });
 
 export function ProfileForm({ initialData, trigger }: ProfileFormProps) {
+  const [isOpen, setIsOpen] = useState(false);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: initialData || {
@@ -94,6 +96,8 @@ export function ProfileForm({ initialData, trigger }: ProfileFormProps) {
     } catch (error) {
       console.log(error);
       toast.error("Something went wrong. Please try again!");
+    } finally {
+      setIsOpen(false);
     }
   }
 
@@ -111,7 +115,7 @@ export function ProfileForm({ initialData, trigger }: ProfileFormProps) {
   }, [birthday, setValue]);
 
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         {trigger || <Button>Open Dialog</Button>}
       </DialogTrigger>
