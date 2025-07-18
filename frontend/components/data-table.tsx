@@ -39,6 +39,7 @@ import {
 import { format } from "date-fns";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
+import { DeleteProfileDialog } from "@/components/delete-profile-dialog";
 
 export const schema = z.object({
   id: z.number(),
@@ -130,7 +131,7 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
   },
   {
     id: "actions",
-    cell: () => (
+    cell: ({ row }) => (
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button
@@ -147,12 +148,17 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
             Edit
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem
-            variant="destructive"
-            onSelect={(e) => e.preventDefault()}
-          >
-            Delete
-          </DropdownMenuItem>
+          <DeleteProfileDialog
+            profileId={row.original.id}
+            dialogTrigger={
+              <DropdownMenuItem
+                variant="destructive"
+                onSelect={(e) => e.preventDefault()}
+              >
+                Delete
+              </DropdownMenuItem>
+            }
+          />
         </DropdownMenuContent>
       </DropdownMenu>
     ),
